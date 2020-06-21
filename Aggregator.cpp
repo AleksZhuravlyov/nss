@@ -1,3 +1,27 @@
+/* MIT License
+ *
+ * Copyright (c) 2020 Aleksandr Zhuravlyov and Zakhar Lanets
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
 #include "Aggregator.h"
 
 
@@ -11,7 +35,7 @@ Aggregator::Aggregator(const std::string &dataFileName) : grd(dataFileName),
                                                           fileWithSini(dataFile.getWord<std::string>("SAT_INI_FILE")),
                                                           Sini(fileWithSini.getVector<double>("SAT_INI")),
                                                           relaxTime(dataFile.getWord<double>("RELAXATION_TIME")),
-                                                          deformation(dataFile.getWord<int>("DEFORMATION")),
+                                                          splittingDegree(dataFile.getWord<int>("SPLITTING_DEGREE")),
                                                           locate(grd, timeStepMax, dataFileName),
                                                           dim(grd.cellsV.size()),
                                                           aC(dim, 0), aF(dim, 0), aR(dim, 0), aL(dim, 0), aT(dim, 0), aB(dim, 0),
@@ -205,7 +229,7 @@ void Aggregator::calculate(std::vector<std::vector<double> > &S) {
 
     timeStepCount = 0;
 
-    bool deformationFlag;
+    bool splittingDegreeFlag;
 
     if (migrationTime[resultsOutCount] == 0) {
         saveResults(S, Sini, startTimeCalc);
@@ -214,14 +238,14 @@ void Aggregator::calculate(std::vector<std::vector<double> > &S) {
 
     do {
 
-        deformationFlag = false;
+      splittingDegreeFlag = false;
         if (timeCurrent > relaxTime)
-            if (deformation != 0)
-                if (timeStepCount % deformation == 0)
-                    deformationFlag = true;
+            if (splittingDegree != 0)
+                if (timeStepCount % splittingDegree == 0)
+                  splittingDegreeFlag = true;
 
 
-        convect.calcСoefficients(Scurrent[timeStepCount % 2], deformationFlag);
+        convect.calcСoefficients(Scurrent[timeStepCount % 2], splittingDegreeFlag);
 
 
         locate.calcСoefficients(Scurrent[timeStepCount % 2]);

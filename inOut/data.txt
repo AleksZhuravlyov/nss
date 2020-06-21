@@ -1,6 +1,6 @@
-TIME                0 3.E+5 2.E+7 \ 1.E+8 5.E+9 \ 1.E+10 1.5E+10 2.5E+10 4.E+10 5.E+10 \ s
+TIME                0 1.E+5 1.E+6 1.E+7 1.E+8 1.E+9 1.E+10 \ s (these are saved time moments)
 
-RELAXATION_TIME     1.E+7 s
+RELAXATION_TIME     1.E+5 s (this is initial time period without splitting)
 
 TIME_STEP_MULT      0.8
 
@@ -14,13 +14,15 @@ FP_FILE             fP.txt
 
 SAT_INI_FILE        satIni.txt
 
-DEFORMATION         7
+SPLITTING_DEGREE    7
 
-SOURCE_CELL_INDEX   \ 0 99 198 297 396 495 594 693 792 891 990 1089 1188 1287 1386 1485 1584 1683 1782 \ index
+SOURCE_CELL_INDEX   \ 0 99 198 297 396 495 594 693 792 891 990 1089 1188 1287 1386 1485 1584 1683 1782 \ (source indices)
 
 
+============================================================================
+(all lines below are comments)
 
-SCHEME:
+SCHEME_OPTIONS:
 
 explicit myExplicit
 
@@ -29,3 +31,8 @@ implicit biConjugateGrSt
 implicit conjugateGrLSq
 
 implicit supernodalLUFact
+
+
+SPECIAL_SYMBOLS:
+
+'\' - and of block (it is used for arrays input)
