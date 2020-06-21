@@ -1,0 +1,14 @@
+Ac          3.0E+4 Pa
+nc          1
+
+Aw          1
+Swr         0
+nw          1
+viscWater   1.0E-5 Pa/s
+densWater   1000 kg/m3
+
+Ao          1
+Sor         0
+no          1
+viscOil     5.0E-5 Pa/s
+densOil     800 kg/m3

@@ -1,0 +1,31 @@
+TIME                0 3.E+5 2.E+7 \ 1.E+8 5.E+9 \ 1.E+10 1.5E+10 2.5E+10 4.E+10 5.E+10 \ s
+
+RELAXATION_TIME     1.E+7 s
+
+TIME_STEP_MULT      0.8
+
+MAX_TOLERANCE       0 1.0E-18
+
+SCHEME              implicit supernodalLUFact
+
+GRID_FILE           gridPars.txt
+
+FP_FILE             fP.txt
+
+SAT_INI_FILE        satIni.txt
+
+DEFORMATION         7
+
+SOURCE_CELL_INDEX   \ 0 99 198 297 396 495 594 693 792 891 990 1089 1188 1287 1386 1485 1584 1683 1782 \ index
+
+
+
+SCHEME:
+
+explicit myExplicit
+
+implicit biConjugateGrSt
+
+implicit conjugateGrLSq
+
+implicit supernodalLUFact
