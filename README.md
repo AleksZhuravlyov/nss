@@ -31,7 +31,8 @@ git clone https://github.com/AleksZhuravljov/nss
 cd nss
 mkdir build
 cd build
-cmake --build ..
+cmake ..
+cmake --build .
 cd ../inOut
 ../build/nss data.txt
 ```
